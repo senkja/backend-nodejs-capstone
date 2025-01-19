@@ -3,7 +3,7 @@ const router = express.Router();
 const connectToDatabase = require('../models/db');
 require('dotenv').config();
 
-// Search for gifts
+// Search for items
 router.get('/', async (req, res, next) => {
     try {
         const db = await connectToDatabase();
