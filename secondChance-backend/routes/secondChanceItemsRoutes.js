@@ -19,7 +19,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-
 // Get all secondChanceItems
 router.get('/', async (req, res, next) => {
     try {
@@ -51,7 +50,6 @@ router.get('/:id', async (req, res, next) => {
         next(e)
     }
 })
-
 
 // Add a new item
 router.post('/', upload.single('file'), async(req, res,next) => {

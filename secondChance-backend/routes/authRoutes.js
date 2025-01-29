@@ -8,7 +8,6 @@ const pino = require('pino')  // Import Pino logger
 
 dotenv.config()
 const { validationResult } = require('express-validator')
-
 const logger = pino()  // Create a Pino logger instance
 
 //Create JWT secret
@@ -16,16 +15,14 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 router.post('/register', async (req, res) => {
     try {
-      //Connect to `secondChance` in MongoDB through `connectToDatabase` in `db.js`.
-      const db = await connectToDatabase()
-      const collection = db.collection("users")
-      const existingEmail = await collection.findOne({ email: req.body.email })
-
+        //Connect to `secondChance` in MongoDB through `connectToDatabase` in `db.js`.
+        const db = await connectToDatabase()
+        const collection = db.collection("users")
+        const existingEmail = await collection.findOne({ email: req.body.email })
         if (existingEmail) {
             logger.error('Email id already exists')
             return res.status(400).json({ error: 'Email id already exists' })
         }
-
         const salt = await bcryptjs.genSalt(10)
         const hash = await bcryptjs.hash(req.body.password, salt)
         const email=req.body.email
@@ -36,13 +33,11 @@ router.post('/register', async (req, res) => {
             password: hash,
             createdAt: new Date(),
         })
-
         const payload = {
             user: {
                 id: newUser.insertedId,
             },
         }
-
         const authtoken = jwt.sign(payload, JWT_SECRET)
         logger.info('User registered successfully')
         res.json({ authtoken,email })

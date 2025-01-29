@@ -3,9 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const pinoLogger = require('./logger')
 const path = require('path')
-
 const connectToDatabase = require('./models/db')
-
 const app = express()
 app.use('*', cors())
 const port = 3060
@@ -42,7 +40,6 @@ app.use((err, req, res, next) => {
   console.error(err)
   res.status(500).send('Internal Server Error')
 })
-
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
