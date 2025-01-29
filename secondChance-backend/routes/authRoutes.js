@@ -34,8 +34,8 @@ router.post('/register', async (req, res) => {
     })
     const payload = {
       user: {
-        id: newUser.insertedId,
-      },
+        id: newUser.insertedId
+      }
     }
     const authtoken = jwt.sign(payload, JWT_SECRET)
     logger.info('User registered successfully')
@@ -62,8 +62,8 @@ router.post('/login', async (req, res) => {
       }
       let payload = {
         user: {
-          id: theUser._id.toString(),
-        },
+          id: theUser._id.toString()
+        }
       }
       const userName = theUser.firstName
       const userEmail = theUser.email
@@ -117,8 +117,8 @@ router.put('/update', async (req, res) => {
     //Task 7: Create JWT authentication with user._id as payload using secret key from .env file
     const payload = {
       user: {
-        id: updatedUser._id.toString(),
-      },
+        id: updatedUser._id.toString()
+      }
     }
     const authtoken = jwt.sign(payload, JWT_SECRET)
     logger.info('User updated successfully')
