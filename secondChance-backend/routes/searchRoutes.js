@@ -7,12 +7,13 @@ require('dotenv').config()
 router.get('/', async (req, res, next) => {
   try {
     const db = await connectToDatabase()
-    const collection = db.collection(process.env.MONGO_COLLECTION)
+    const collection = db.collection('secondChanceItems')
     // Initialize the query object
     const query = {}
     // Add the name filter to the query if the name parameter is not empty
     if (req.query.name && req.query.name.trim() !== '') {
-      query.name = { $regex: req.query.name, $options: 'i' } // Using regex for partial match, case-insensitive
+      // query.name = { $regex: req.query.name, $options: 'i' }
+      query.name = req.query.name
     }
     // Add other filters to the query
     if (req.query.category) {
