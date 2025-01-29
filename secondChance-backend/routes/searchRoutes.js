@@ -12,8 +12,7 @@ router.get('/', async (req, res, next) => {
     const query = {}
     // Add the name filter to the query if the name parameter is not empty
     if (req.query.name && req.query.name.trim() !== '') {
-      // query.name = { $regex: req.query.name, $options: 'i' }
-      query.name = req.query.name
+      query.name = { $regex: req.query.name, $options: 'i' }
     }
     // Add other filters to the query
     if (req.query.category) {
@@ -22,9 +21,11 @@ router.get('/', async (req, res, next) => {
     if (req.query.condition) {
       query.condition = req.query.condition
     }
+/*
     if (req.query.age_years) {
       query.age_years = { $lte: parseInt(req.query.age_years) }
     }
+*/    
     const gifts = await collection.find(query).toArray()
     res.json(gifts)
   } catch (e) {
